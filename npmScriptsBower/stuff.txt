@@ -1,0 +1,5 @@
+// pre i post to przedrostki ktore spowoduja ze dane ksrypty beda uruchamiane rpzed i po wywolaniu innego
+
+// zawsze gdy status zwrocony przez skrypt bedzie inny niz 0 - wykryty zostanie blad
+
+// .bowerrc moze zmieniac ustawienia bowera - np lokacje gdzie isntalowane bedzie wszystko
