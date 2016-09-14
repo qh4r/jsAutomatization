@@ -1,0 +1,58 @@
+@import "variables"; // wielokrotne importy nie stanowią problemu
+@import "mixins"; // wielokrotne importy nie stanowią problemu
+
+.site-wrap.header {
+  background: @header-bg;
+  border: solid 1px @header-border;
+
+  h1 {
+    font-weight: normal;
+    margin: 0;
+    padding: 10px 0;
+    font-size: 20px;
+
+    strong {
+      color: @color-strong;
+      font-weight: normal;
+      font-size: 14px;
+    }
+  }
+
+  nav {
+    display: flex;
+
+    > a {
+      display: block;
+      padding: 10px;
+      color: #EEE;
+      text-align: center;
+      text-decoration: none;
+
+      flex-basis: 0;
+      flex-grow: 1; // tak jak 1* w wpfie
+
+      &.selected {
+        .top-radius(5px); // mixin!
+
+        background: @color-strong;
+        color: #EEE;
+
+        &:hover {
+          background: @color-strong; // by nie rozjasnialo sie na hoverze (ponizej)
+        }
+      }
+
+      &:hover {
+        .top-radius(5px); // mixin!
+        .inner-top-highlight(@color-strong);
+        margin: -1px -1px 0 -1px;
+      }
+
+    }
+
+    &:after {
+      content: "";
+      flex-grow: 5; // tak jak 5* w wpfie
+    }
+  }
+}
