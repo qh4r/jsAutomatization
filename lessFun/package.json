@@ -1,0 +1,15 @@
+{
+  "name": "less_fun",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "less": "node_modules/.bin/lessc styles_dev/main.less styles/main.css  --source-map"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "less": "^2.7.1"
+  }
+}

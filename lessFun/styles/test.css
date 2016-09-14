@@ -1,0 +1,20 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  margin: auto;
+  width: 1080px;
+}
+.container h1 {
+  color: #ff5463;
+}
+p {
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+}
+p span {
+  color: #b869ff;
+}
+/*# sourceMappingURL=test.css.map */

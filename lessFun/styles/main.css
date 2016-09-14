@@ -1,0 +1,24 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #1e1e1e;
+  color: #C8C8C8;
+  font-family: verdana, arial;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+}
+body > .site-wrap.body {
+  flex-grow: 1;
+}
+body > .site-wrap > header,
+body > .site-wrap > section,
+body > .site-wrap > footer {
+  max-width: 700px;
+  margin: auto;
+}
+/*# sourceMappingURL=main.css.map */
