@@ -22,7 +22,6 @@ gulp.task('cb_sample', (cb) => {
 //gulp.task('default', gulp.parallel([stub, devStyles, devScripts]));
 
 
-
 gulp.task('stub', stub);
 
 gulp.task('dev:styles', devStyles);
@@ -34,7 +33,13 @@ gulp.task('dev:scripts', devScripts);
 gulp.task('default', gulp.series(
     [
         stub,
-        gulp.parallel("dev:styles", devScripts), //[] sa opcjonalne
+        gulp.parallel( //[] sa opcjonalne
+            "dev:styles",
+            devScripts,
+            (cb) => {
+                console.log('jeszcze 1');
+                cb();
+            }), //funkcje anonimowe tez sa ok
         ending
     ]));
 
