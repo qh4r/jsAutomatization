@@ -7,6 +7,7 @@ var fs = require('fs'),
 const my_transform = new Transform({
     transform: function (chunk, encoding, next) {
         this.push(chunk.toString().split('').reverse().join('').trim());
+        next();
     }
 });
 
