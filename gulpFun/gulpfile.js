@@ -1,6 +1,27 @@
 var gulp = require('gulp'),
-    babel = require('gulp-babel'),
-    less = require('gulp-less');
+//GULP_LOAD_PLUGINS wykrywa uzywane pluginy i ładuje je za nas - musimy tylko odnosic sie do nich przez utworzona zmienna
+// !!! nazwy bez przedrostka 'gulp-' !!!!!
+    $plugins = require('gulp-load-plugins')();
+
+const config = {
+    styles: {
+        src: './src/styles/main.less',
+        dest: './public/styles',
+        prefix: {
+            browsers: ['last 5 versions']
+        }
+    },
+    scripts: {
+        src: './src/scripts/**/*.js',
+        dest: './public/scripts',
+        bundle: 'main.js'
+    }
+}
+
+//    babel = require('gulp-babel'),
+//    less = require('gulp-less'),
+//    sourcemaps = require('gulp-sourcemaps'),
+//    autoprefixer = require('gulp-autoprefixer');
 
 // Kazda funkcja gulpa musi zwracac stream
 
@@ -15,6 +36,7 @@ gulp.task('cb_sample', (cb) => {
     }, 2000);
 });
 
+
 // wykonuje zadania pokolei jedno po drugim
 //gulp.task('default', gulp.series([stub, devStyles, devScripts]));
 
@@ -24,9 +46,15 @@ gulp.task('cb_sample', (cb) => {
 
 gulp.task('stub', stub);
 
-gulp.task('dev:styles', devStyles);
+gulp.task('dev:styles', processStyles(config.styles, false));
 
-gulp.task('dev:scripts', devScripts);
+gulp.task('prod:styles', processStyles(config.styles, true));
+
+gulp.task('dev:scripts', devScripts(config.scripts));
+
+gulp.task('prod:scripts', prodScripts(config.scripts));
+
+gulp.task('prod', (gulp.parallel('prod:styles', 'prod:scripts')));
 
 // JESLI CHCEMY UZYC NAZWY DO WYWOLANIA TO TASK MUSI BYC ZDEFINIOWANY PRZED UZYCIEM!!!!!!!!!!!!!!!!!!!!!!!
 //mozna mieszac
@@ -35,7 +63,7 @@ gulp.task('default', gulp.series(
         stub,
         gulp.parallel( //[] sa opcjonalne
             "dev:styles",
-            devScripts,
+            devScripts(config.scripts),
             (cb) => {
                 console.log('jeszcze 1');
                 cb();
@@ -52,24 +80,45 @@ function stub(cb) {
     }, 1000);
 }
 
-function devScripts() {
-    console.log('start scripts');
-    return gulp
-    //.src(['./src/scripts/app.js', './src/scripts/sth.js'])
-        .src('./src/scripts/**/*.js')
-        .pipe(babel())
-        .pipe(gulp.dest('./public/scripts'));
+function devScripts(cfg) {
+    return () => {
+        console.log('start scripts');
+        return gulp
+        //.src(['./src/scripts/app.js', './src/scripts/sth.js'])
+            .src(cfg.src)
+            .pipe($plugins.sourcemaps.init())
+            .pipe($plugins.babel())
+            .pipe($plugins.sourcemaps.write('.')) //kropka oznacza external sourcemape - podaje sie sciezke do zapisu
+            .pipe(gulp.dest(cfg.dest));
+    }
 }
 
-function devStyles() {
-    console.log('start styles');
-    return gulp
-        .src('./src/styles/main.less')
-        .pipe(less())
-        .pipe(gulp.dest('./public/styles'));
+function processStyles(cfg, isProduction) {
+    return () => {
+        console.log('start styles');
+        return gulp
+            .src(cfg.src)
+            .pipe($plugins.if(!isProduction, $plugins.sourcemaps.init())) // jesli warunek nie spelniony - pomija
+            .pipe($plugins.autoprefixer(cfg.prefix))
+            .pipe($plugins.less())
+            .pipe($plugins.if(isProduction, $plugins.cleanCss()))
+            .pipe($plugins.if(!isProduction, $plugins.sourcemaps.write())) // bez argumentow - tworzy mape w pliku (INTERNAL)
+            .pipe(gulp.dest(cfg.dest));
+    }
 }
 
 function ending(cb) {
     console.log('just sth left for the end');
     cb();
+}
+
+function prodScripts(cfg) {
+    return () => {
+        return gulp
+            .src(cfg.src)
+            .pipe($plugins.babel())
+            .pipe($plugins.concat(cfg.bundle)) //nazwa pliku wyjsciowego jako argument
+            .pipe($plugins.uglify())
+            .pipe(gulp.dest(cfg.dest));
+    }
 }

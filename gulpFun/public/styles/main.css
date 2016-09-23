@@ -1,10 +1,1 @@
-container {
-  margin: auto;
-  width: 1080px;
-  color: #e3dfe4;
-  background-color: #070c19;
-}
-container h1,
-container strong {
-  color: #ff5463;
-}
+.container{margin:auto;width:1080px;color:#e3dfe4;background-color:#070c19}.container h1,.container strong{color:#ff5463}.column{display:-webkit-flex;display:-ms-flexbox;display:flex}.column .child{-webkit-flex-basis:100px;-ms-flex-preferred-size:100px;flex-basis:100px}

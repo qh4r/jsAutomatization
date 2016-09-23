@@ -1,0 +1,1 @@
+"use strict";function _classCallCheck(s,n){if(!(s instanceof n))throw new TypeError("Cannot call a class as a function")}var asd=32,Person=function s(n){_classCallCheck(this,s),this.name=n},firstPerson=new Person("Krzyś");console.log([asd,firstPerson]);var test="znowu",func=function(s){s.toUpperCase()};console.log(func(test));

@@ -7,3 +7,4 @@ var func = function func(x) {
 };
 
 console.log(func(test));
+//# sourceMappingURL=sth.js.map
