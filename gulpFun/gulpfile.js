@@ -9,14 +9,18 @@ const config = {
         dest: './public/styles',
         prefix: {
             browsers: ['last 5 versions']
-        }
+        },
+        srcDir: './src/styles/**/*.{less,css}'
     },
     scripts: {
         src: './src/scripts/**/*.js',
         dest: './public/scripts',
         bundle: 'main.js'
+    },
+    html: {
+        src: './public/**/*.html'
     }
-}
+};
 
 //    babel = require('gulp-babel'),
 //    less = require('gulp-less'),
@@ -54,7 +58,13 @@ gulp.task('dev:scripts', devScripts(config.scripts));
 
 gulp.task('prod:scripts', prodScripts(config.scripts));
 
+gulp.task('html', html);
+
 gulp.task('prod', (gulp.parallel('prod:styles', 'prod:scripts')));
+
+gulp.task('dev', (gulp.parallel('dev:styles', 'dev:scripts')));
+
+gulp.task('watch', gulp.series('dev', devWatch));
 
 // JESLI CHCEMY UZYC NAZWY DO WYWOLANIA TO TASK MUSI BYC ZDEFINIOWANY PRZED UZYCIEM!!!!!!!!!!!!!!!!!!!!!!!
 //mozna mieszac
@@ -89,7 +99,8 @@ function devScripts(cfg) {
             .pipe($plugins.sourcemaps.init())
             .pipe($plugins.babel())
             .pipe($plugins.sourcemaps.write('.')) //kropka oznacza external sourcemape - podaje sie sciezke do zapisu
-            .pipe(gulp.dest(cfg.dest));
+            .pipe(gulp.dest(cfg.dest))
+            .pipe($plugins.livereload());
     }
 }
 
@@ -103,7 +114,8 @@ function processStyles(cfg, isProduction) {
             .pipe($plugins.less())
             .pipe($plugins.if(isProduction, $plugins.cleanCss()))
             .pipe($plugins.if(!isProduction, $plugins.sourcemaps.write())) // bez argumentow - tworzy mape w pliku (INTERNAL)
-            .pipe(gulp.dest(cfg.dest));
+            .pipe(gulp.dest(cfg.dest))
+            .pipe($plugins.if(!isProduction, $plugins.livereload()));
     }
 }
 
@@ -121,4 +133,18 @@ function prodScripts(cfg) {
             .pipe($plugins.uglify())
             .pipe(gulp.dest(cfg.dest));
     }
+}
+
+function devWatch() {
+    $plugins.livereload.listen();
+    gulp.watch(config.styles.srcDir, gulp.series('dev:styles'));
+    gulp.watch(config.scripts.src, gulp.series('dev:scripts'));
+    gulp.watch(config.scripts.src, gulp.series('dev:scripts'));
+    gulp.watch(config.html.src, gulp.series('html'));
+}
+
+function html(){
+    console.log('HTML');
+    gulp.src(config.html.src)
+        .pipe($plugins.livereload())
 }
