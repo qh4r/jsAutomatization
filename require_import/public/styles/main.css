@@ -1,0 +1,15 @@
+.container {
+  margin: auto;
+  width: 900px;
+  background: #ffff6c;
+}
+.container h1 {
+  color: #EA4444;
+  font-weight: 300;
+}
+.container p {
+  color: #232323;
+}
+.container p:before {
+  content: '† ';
+}
