@@ -139,7 +139,6 @@ function devWatch() {
     $plugins.livereload.listen();
     gulp.watch(config.styles.srcDir, gulp.series('dev:styles'));
     gulp.watch(config.scripts.src, gulp.series('dev:scripts'));
-    gulp.watch(config.scripts.src, gulp.series('dev:scripts'));
     gulp.watch(config.html.src, gulp.series('html'));
 }
 
