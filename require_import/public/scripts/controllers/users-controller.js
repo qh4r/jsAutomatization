@@ -1,7 +1,9 @@
-"use strict";
+define(["exports"], function (exports) {
+  "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = usersControlle;
+  function usersControlle($mount, usersStore) {}
 });
-exports.default = usersControlle;
-function usersControlle($mount, usersStore) {}

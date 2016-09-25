@@ -1,39 +1,52 @@
-'use strict';
+define(['./models/users-store', './controllers/users-controller', './lib/utils', './script'], function (_usersStore, _usersController, _utils) {
+    'use strict';
 
-var _usersStore = require('./models/users-store');
+    var _usersController2 = _interopRequireDefault(_usersController);
 
-var _usersController = require('./controllers/users-controller');
+    var utils = _interopRequireWildcard(_utils);
 
-var _usersController2 = _interopRequireDefault(_usersController);
+    function _interopRequireWildcard(obj) {
+        if (obj && obj.__esModule) {
+            return obj;
+        } else {
+            var newObj = {};
 
-var _utils = require('./lib/utils');
+            if (obj != null) {
+                for (var key in obj) {
+                    if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+                }
+            }
 
-var utils = _interopRequireWildcard(_utils);
+            newObj.default = obj;
+            return newObj;
+        }
+    }
 
-require('./script');
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+    // po prostu wywoluje zawartosc pliku script
+    utils.test1(); // importuje tak jak require?
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+    utils.test2();
 
-// po prostu wywoluje zawartosc pliku script
-utils.test1(); // importuje tak jak require?
+    var store = new _usersStore.UsersStore();
 
-utils.test2();
+    (0, _usersController2.default)(document.body, store);
 
-var store = new _usersStore.UsersStore();
+    (0, _usersStore.debugStore)(store);
 
-(0, _usersController2.default)(document.body, store);
+    var attempt = function () {
+        var mnoznik = 3;
+        var dzielnik = 2;
 
-(0, _usersStore.debugStore)(store);
+        console.log('zgadnij co sie dzieje z liczba co ja podajesz => attempt({liczba})');
 
-var attempt = function () {
-    var mnoznik = 3;
-    var dzielnik = 2;
-
-    console.log('zgadnij co sie dzieje z liczba co ja podajesz => attempt({liczba})');
-
-    return function (input) {
-        console.log(input * mnoznik / dzielnik);
-    };
-}();
+        return function (input) {
+            console.log(input * mnoznik / dzielnik);
+        };
+    }();
+});
