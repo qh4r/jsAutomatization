@@ -1,0 +1,9 @@
+body {
+    background:#eee;
+    color: #444;
+}
+
+#application {
+    width: 500px;
+    margin: auto;
+}
