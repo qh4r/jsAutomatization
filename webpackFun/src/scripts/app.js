@@ -5,7 +5,7 @@ import usersController from './controllers/users-controller';
 import './script';
 
 // import 'jquery-ui-browserify/themes/ui-darkness/jquery-ui.css'
-// import 'jquery-ui/themes/ui-darkness/jquery-ui.css'
+import '../styles/ui_darkness/jquery-ui.css'
 
 
 console.log('starting app');

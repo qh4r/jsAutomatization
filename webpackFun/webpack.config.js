@@ -9,7 +9,7 @@ function config() {
         output: {
             path: path.join(__dirname, 'public', 'assets'),
             filename: '[name].js', // name to placeholder dla nazwy paczki
-            publicPath: '/assets'
+            publicPath: '/assets/'
         },
         module: {
             loaders: [
@@ -18,7 +18,12 @@ function config() {
                 {test: /\.less$/, loaders: ['style', 'css', 'less']},
                 {test: /\.css$/, loaders: ['style', 'css']},
                 {test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=1024'},
-                //przetwarza pliki do takiego limitu wagowego na obrazki w base 64
+                //przetwarza pliki do takiego limitu wagowego na obrazki w base64
+                // w tym wypadku wszystkie obrazki mniejsze niz 1KB zostana przekonwertowane do bas64
+
+                // jesli jest wieksze niz limit to uzyty zostaje file-loader
+                // FILE LOADER MUSI BYC TEZ ZAINSTALOWANY
+                // dziala jako fallback gdy przekroczony limit
                 {
                     test: require.resolve("jquery"),
                     loader: "expose?$!expose?jQuery"
