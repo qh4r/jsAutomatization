@@ -9,7 +9,12 @@ module.exports = {
     module: {
         loaders: [
             { test: /\.css/, loader: 'style!css!'},
-            { test: /bad\.js$/, loader: 'exports?test&errorLog!imports?$=jquery'}
+            // { test: /bad\.js$/, loader: 'exports?test&errorLog!imports?$=jquery'}
+            // czystszy sposob
+            { test: /bad\.js$/, loaders: [
+                'exports?test&errorLog',
+                'imports?$=jquery'
+            ] }
         ]
     }
 };
