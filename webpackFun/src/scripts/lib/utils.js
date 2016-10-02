@@ -3,5 +3,5 @@ export function test1(){
 }
 
 export function test2(){
-    console.log('222');
+    console.log('2222');
 }

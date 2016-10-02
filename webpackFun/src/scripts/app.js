@@ -8,7 +8,7 @@ import './script';
 import '../styles/ui_darkness/jquery-ui.css'
 
 
-console.log('starting app');
+console.log('starting app =]');
 
 import '../styles/main.less'
 

@@ -17,7 +17,7 @@ function config() {
                 // {test: /\.less/, loader: 'style!css!less'}
                 {test: /\.less$/, loaders: ['style', 'css', 'less']},
                 {test: /\.css$/, loaders: ['style', 'css']},
-                {test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=1024'},
+                {test: /\.(png|jpg|jpeg|gif|svg|eot|woff|woff2|ttf)$/, loader: 'url-loader?limit=1024'},
                 //przetwarza pliki do takiego limitu wagowego na obrazki w base64
                 // w tym wypadku wszystkie obrazki mniejsze niz 1KB zostana przekonwertowane do bas64
 
