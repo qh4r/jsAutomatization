@@ -1,9 +1,13 @@
-var path = require('path');
+var path = require('path'),
+    webpack = require('webpack');
 
 function config() {
     return {
         entry: {
-            app: './src/scripts/app',
+            app: ['webpack-dev-server/client',
+                'webpack/hot/only-dev-server',
+                './src/scripts/app'],
+            // najpierw moduły  - ostatni element to entry point
             // scp: './src/scripts/script'
         },
         output: {
@@ -13,7 +17,7 @@ function config() {
         },
         module: {
             loaders: [
-                {test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
+                {test: /\.js$/, loader: 'babel', exclude: /node_modules/},
                 // {test: /\.less/, loader: 'style!css!less'}
                 {test: /\.less$/, loaders: ['style', 'css', 'less']},
                 {test: /\.css$/, loaders: ['style', 'css']},
@@ -29,11 +33,14 @@ function config() {
                     loader: "expose?$!expose?jQuery"
                 },
                 {
-                    test:   /jquery\..*\.js/,
+                    test: /jquery\..*\.js/,
                     loader: "imports?$=jquery,jQuery=jquery,this=>window"
                 }
             ]
-        }
+        },
+        plugins: [
+            new webpack.HotModuleReplacementPlugin()
+        ]
     };
 }
 

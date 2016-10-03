@@ -23,14 +23,13 @@ gulp.task('dev', (cb) => {
 
 gulp.task('watch', () => {
     var config = createDevConfig();
-    console.log(config);
 
     config.output.publicPath = 'http://localhost:8085/public/';
-    console.log(config);
 
     const compiler = webpack(config);
 
     const devServer = new WebpackDevServer(compiler, {
+        hot: true,
         inline: true,
         stats: {
             colors: true,
